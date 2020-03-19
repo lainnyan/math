@@ -5,9 +5,8 @@ using namespace std;
 
 int Multi(int* arr, int N)
 {
-	int a =1;
+	int a = 1;
 	for (int i = 0; i < N; i++)
-	{
 		if (arr[i] == 0)
 		{
 			int j = i + 1;
@@ -16,18 +15,12 @@ int Multi(int* arr, int N)
 				a *= arr[j];
 				j++;
 			}
+			return a;
 		}
-		return a;
-	}
+
+	return -1;
 }
 
-void  EvenSort(int*& arr, int N)
-{
-	for (int i = 1; i < N;i++)
-	{
-
-	}
-}
 void InsertionSort(int*& arr, int N)
 {
 	int key;
@@ -43,12 +36,18 @@ void InsertionSort(int*& arr, int N)
 			j--;
 		}
 	}
+	cout<< "Сортировка по возрастанию:" <<endl;
+	for (int i = 0; i < N; i++)
+	{
+	    
+		cout << arr[i] << " ";
+	}
+	cout << endl;
 }
 
 int main()
 {
-	setlocale(0, "Rus");
-	int N, index = 0, indexFirst,indexSecond;
+	int N;
 	cout << "Введите размер массива: ";
 	cin >> N;
 
@@ -56,22 +55,41 @@ int main()
 	srand(time(NULL));
 	for (int i = 0; i < N; i++)
 	{
-		arr[i] = rand() % 10;
+		arr[i] = rand() % 30;
+		arr[4]=0;
+		arr[7]=0;
 		cout << arr[i] << " ";
 	}
 	cout << endl;
-	int max = arr[0];
-	//InsertionSort(arr, N);
-	//cout << "Номер максимального элемента массива: " << N;
-	for (int i = 0; i < N; i++)
-	{
-		if (max < arr[i])
+
+	int index = 1;
+	for (int max = arr[0], i = 1; i < N; i++)
+		if (arr[i] > max)
 		{
 			max = arr[i];
-			index = i+1;
+			index = i + 1;
 		}
-	}
-	cout << "Номер максимального элемента массива: "<<index<<endl;
+	cout << "Номер максимального элемента массива: " << index << endl;
+	int m = Multi(arr, N);
+	if (m != -1)
+		cout << "Произведение элементов между двумя первыми нулями: " << m << endl;
+	else
+		cout << "В массиве нет нулей" << endl;
+	for (int i = 1; i < N; i++)
+		for (int j = i; j < N - i; j += 2)
+		{
+			int temp = arr[j];
+			arr[j] = arr[j + 1];
+			arr[j + 1] = temp;
+		}
+    
+    cout << "Сортировка по нечетным и четным индексам: "<<endl;;
+	for(int i = 0; i < N; i++)
+		cout << arr[i] << " ";
+	cout << endl;
 
-	cout << Multi(arr, N);
+    InsertionSort(arr,N);
+
+	system("pause");
+	return 0;
 }
